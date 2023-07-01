@@ -31,9 +31,6 @@ public class HousePlants {
         for (Plant plant : plantListPM) {Settings.printPlantsComputerOutput(plant);}
 
 
-        // Ošetření zadávání frekvence zálivky dle bodu 6 domácího úkolu (3. část)
-        // + Ošetření zadávání datumu zálivky dle bodu 7 domácího úkolu (3. část)
-        // + část bodu 14 (přidání dvou květin)
         try {
             plantListPM.add(new Plant("Jahodník", "na zábradlí balkónu", LocalDate.now(),
                     LocalDate.now(),
@@ -56,7 +53,7 @@ public class HousePlants {
                 ("Aktualizovaný seznam rostlin po odebrání jedné rostliny dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantListPM) {Settings.printPlantsPeopleDateOutput(plant);}
 
-        // Uložení aktualizovaného seznamu rostlin do nového souboru dle bodu 15 domácího úkolu
+
         System.out.println();
         try {
             plantManager.saveDataPlantsToNewFilePM(Settings.fileNameAfterChangesS(), plantListPM);
@@ -67,8 +64,7 @@ public class HousePlants {
             throw new RuntimeException(e);
         }
 
-        // Naačtení ze souboru a vizuální ověření souboru aktualizovaného seznamu rostlin do nového souboru dle bodu
-        // 16 domácího úkolu + vizuální ověření na výstupu na obrazovku
+
         try {plantManager.loadDataPlantsFromFilePM(Settings.fileNameAfterChangesS(), Settings.delimiterS());}
         catch (PlantException e) {
             System.err.println("Nepodařilo se načíst data ze souboru " + e.getLocalizedMessage());

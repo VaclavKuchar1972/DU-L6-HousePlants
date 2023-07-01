@@ -10,10 +10,6 @@ import java.util.Scanner;
 import static com.domaciukollekce6.houseplants.Settings.delimiterS;
 
 public class PlantManager {
-    // POMOCNÝ PROMĚNNÝ JIŽ NIKDY NEAKTIVOVAT NA ZAĆÁTKU PROGRAMU nebo Třídy!!!
-    // Jejich aktivace (alokace v paměti) patří přímo do dané metody, kde je budu potřebovat, protože po skončení metody
-    // se z paměti ihned uvolní. (to je pro mě)
-
     private List<Plant> plantListPM = new ArrayList<>();
 
     // Předání kopie seznamu tak, aby ho nikdo zvenčí nemohl nikdo měnit (přikázal lektor Martin)
@@ -44,14 +40,7 @@ public class PlantManager {
                 plantNotePM = itemsPM[1];
                 plantNormalWateringFrequencyPM = Integer.parseInt(itemsPM[2]);
                 plantLastWateringDatePM = LocalDate.parse(itemsPM[3]);
-
-                // Toto ošetření nad rámec domácího úkolu jsem si po konzultaci,
-                // kde jsem zase otravoval nejvíc ze všech, nemohl odpustit... ...to bych Tě urazil. :-)
-                // Funguje to teda nějak divně!!! :D ten výpis chyby jsem nepochopil, ALE funguje dostatečně na to,
-                // aby frajer (specialista), kterýmu to tuto chybu zahlásí, věděl ihned, kde je problém
-                // jestli budeme mít spolu nějakou další konzultaci, tak Tě ohleděně tohoto opět vyslechnu :-)
                 helpBadDateIdentifokatorPM = 4;
-
                 plantPlantingDatePM = LocalDate.parse(itemsPM[4]);
                 Plant newPlantPM = new Plant(plantNamePM, plantNotePM, plantPlantingDatePM, plantLastWateringDatePM,
                         plantNormalWateringFrequencyPM);

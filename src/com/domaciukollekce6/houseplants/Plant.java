@@ -45,7 +45,6 @@ public class Plant {
         this.plantNormalWateringFrequencyP = 7;
     }
 
-    // Přístupová metoda z bodu č.4 domácího úkolu lekce 5
     public String getWateringInfo () {
         return "   Název rostliny: " + plantNameP + "   Datum poslední zálivky: "
                 + plantLastWateringDateP.format(DateTimeFormatter.ofPattern("d.M.yyyy"))
@@ -63,8 +62,6 @@ public class Plant {
     public void setPlantPlantingDateP(LocalDate plantPlantingDateP) {this.plantPlantingDateP = plantPlantingDateP;}
     public LocalDate getPlantLastWateringDateP() {return plantLastWateringDateP;}
     public void setPlantLastWateringDateP(LocalDate plantLastWateringDateP) throws PlantException {
-        // Ošetření zadávání data poslední zálivky dle bodu 7 domácího úkolu - 1. část řešení,
-        // 2. část je v jednom konstrukotoru a třetí část je v Mainu
         if (plantLastWateringDateP.isBefore(plantPlantingDateP)) {
             throw new PlantException("Chyba - datum poslední zálivky je před vysazením rostliny");
         }
@@ -72,8 +69,6 @@ public class Plant {
     }
     public int getPlantNormalWateringFrequencyP() {return plantNormalWateringFrequencyP;}
     public void setPlantNormalWateringFrequencyP(int plantNormalWateringFrequencyP) throws PlantException {
-        // Ošetření zadávání frekvence zálivky dle bodu 6 domácího úkolu - 1. část řešení, 2. část je ve dvou
-        // konstrukotorech a třetí část je v Mainu
         if (plantNormalWateringFrequencyP < 1) {
             throw new PlantException("Chyba - frekvence zálivky je menší než jeden den, její hodnota je nyní: "
                     + plantNormalWateringFrequencyP);
