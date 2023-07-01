@@ -7,62 +7,64 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.domaciukollekce6.houseplants.Settings.delimiterS;
+import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
 public class PlantManager {
-    private List<Plant> plantListPM = new ArrayList<>();
+    private List<Plant> plantList = new ArrayList<>();
 
     // Předání kopie seznamu tak, aby ho nikdo zvenčí nemohl nikdo měnit (přikázal lektor Martin)
-    public List<Plant> getPlantListPM() {return new ArrayList<>(plantListPM);}
+    public List<Plant> getPlantList() {return new ArrayList<>(plantList);}
 
-    public void addPlantPM(Plant plant) {plantListPM.add(plant);}
-    public void removePlantPM(Plant plant) {plantListPM.remove(plant);}
+    public void addPlant(Plant plant) {
+        plantList.add(plant);}
+    public void removePlant(Plant plant) {
+        plantList.remove(plant);}
 
-    public Plant getPlantFromIdexPM(int indexPM) {return plantListPM.get(indexPM);}
+    public Plant getPlantFromIdex(int indexPM) {return plantList.get(indexPM);}
 
     public void loadDataPlantsFromFilePM (String fileNamePrimaryPM, String delimiterPM) throws PlantException {
-        int helpLineNumberPM = 0; int helpBadDateIdentifokatorPM = 3;
-        int plantNormalWateringFrequencyPM = 0;
-        String linePM = ""; String plantNamePM = ""; String plantNotePM = "";
-        String[] itemsPM = new String[0];
-        LocalDate plantLastWateringDatePM = null; LocalDate plantPlantingDatePM = null;
-        try (Scanner scannerLoadDataPM = new Scanner(new BufferedReader(new FileReader(fileNamePrimaryPM)))) {
-            while (scannerLoadDataPM.hasNextLine()) {
-                helpLineNumberPM = helpLineNumberPM + 1;
-                linePM = scannerLoadDataPM.nextLine();
+        int helpLineNumber = 0; int helpBadDateIdentifokator = 3;
+        int plantNormalWateringFrequency = 0;
+        String line = ""; String plantName = ""; String plantNote = "";
+        String[] items = new String[0];
+        LocalDate plantLastWateringDate = null; LocalDate plantPlantingDate = null;
+        try (Scanner scannerLoadData = new Scanner(new BufferedReader(new FileReader(fileNamePrimaryPM)))) {
+            while (scannerLoadData.hasNextLine()) {
+                helpLineNumber = helpLineNumber + 1;
+                line = scannerLoadData.nextLine();
                 // Oddělení jednotlivých dat stažených ze souboru (teď máme tabulátor, kterej se mi vůbec nelíbí)
-                itemsPM = linePM.split(delimiterPM);
-                if (itemsPM.length != 5) {
+                items = line.split(delimiterPM);
+                if (items.length != 5) {
                     throw new PlantException(
-                            "Chyba - špatný počet položek na řádku: " + helpLineNumberPM + ": " + linePM);
+                            "Chyba - špatný počet položek na řádku: " + helpLineNumber + ": " + line);
                 }
-                plantNamePM = itemsPM[0];
-                plantNotePM = itemsPM[1];
-                plantNormalWateringFrequencyPM = Integer.parseInt(itemsPM[2]);
-                plantLastWateringDatePM = LocalDate.parse(itemsPM[3]);
-                helpBadDateIdentifokatorPM = 4;
-                plantPlantingDatePM = LocalDate.parse(itemsPM[4]);
-                Plant newPlantPM = new Plant(plantNamePM, plantNotePM, plantPlantingDatePM, plantLastWateringDatePM,
-                        plantNormalWateringFrequencyPM);
-                plantListPM.add(newPlantPM);
+                plantName = items[0];
+                plantNote = items[1];
+                plantNormalWateringFrequency = Integer.parseInt(items[2]);
+                plantLastWateringDate = LocalDate.parse(items[3]);
+                helpBadDateIdentifokator = 4;
+                plantPlantingDate = LocalDate.parse(items[4]);
+                Plant newPlantPM = new Plant(plantName, plantNote, plantPlantingDate, plantLastWateringDate,
+                        plantNormalWateringFrequency);
+                plantList.add(newPlantPM);
             }
         } catch (FileNotFoundException e) {
             throw new PlantException("Soubor " + fileNamePrimaryPM + "nebyl nalezen! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
-            throw new PlantException("Chyba - v databázi není číslo: " + itemsPM[2]
-                    + " na řádku: " + helpLineNumberPM + ": " + linePM);
+            throw new PlantException("Chyba - v databázi není číslo: " + items[2]
+                    + " na řádku: " + helpLineNumber + ": " + line);
         } catch (DateTimeParseException e) {
-            throw new PlantException("Chyba - v databázi není datum: " + itemsPM[helpBadDateIdentifokatorPM]
-                    + " na řádku: " + helpLineNumberPM + ": " + linePM);
+            throw new PlantException("Chyba - v databázi není datum: " + items[helpBadDateIdentifokator]
+                    + " na řádku: " + helpLineNumber + ": " + line);
         }
     }
-    public void saveDataPlantsToNewFilePM(String fileName, List<Plant> plantList) throws PlantException {
+    public void saveDataPlantsToNewFile(String fileName, List<Plant> plantList) throws PlantException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Plant plant : plantList) {
-                writer.write(plant.getPlantNameP() + delimiterS () + plant.getPlantNoteP() + delimiterS ()
-                        + plant.getPlantNormalWateringFrequencyP() + delimiterS ()
-                        + plant.getPlantLastWateringDateP() + delimiterS ()
-                        + plant.getPlantPlantingDateP());
+                writer.write(plant.getPlantName() + delimiter() + plant.getPlantNote() + delimiter()
+                        + plant.getPlantNormalWateringFrequency() + delimiter()
+                        + plant.getPlantLastWateringDate() + delimiter()
+                        + plant.getPlantPlantingDate());
                 writer.newLine();
             }
         } catch (IOException e) {

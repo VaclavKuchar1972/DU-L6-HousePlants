@@ -4,7 +4,6 @@ import com.domaciukollekce6.houseplants.PlantManager;
 import com.domaciukollekce6.houseplants.Settings;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class HousePlants {
@@ -12,7 +11,7 @@ public class HousePlants {
 
         PlantManager plantManager = new PlantManager();
 
-        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNamePrimaryS(), Settings.delimiterS());}
+        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNamePrimary(), Settings.delimiter());}
         catch (PlantException e) {
             System.err.println("Nepodařilo se načíst data ze souboru " + e.getLocalizedMessage());
             throw new RuntimeException(e);
@@ -20,7 +19,7 @@ public class HousePlants {
 
         // Toto musí být až po natažení dat, jinak je list prázdný,
         // narozdíl od ostatních tříd se Main evidentně chová striktně chronologicky!!! (to je pro mě)
-        List<Plant> plantListPM = plantManager.getPlantListPM();
+        List<Plant> plantListPM = plantManager.getPlantList();
 
         System.out.println();
         System.out.println("Surová data ze VSTUPNÍHO souboru DB-ListOfPlantsPrimary.txt:");
@@ -47,7 +46,7 @@ public class HousePlants {
         System.out.println("Aktualizovaný seznam rostlin po přidání dvou rostlin dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantListPM) {Settings.printPlantsPeopleDateOutput(plant);}
 
-        plantListPM.removeIf(plant -> plant.getPlantNameP().equals("Sukulent v koupelně"));
+        plantListPM.removeIf(plant -> plant.getPlantName().equals("Sukulent v koupelně"));
         System.out.println();
         System.out.println
                 ("Aktualizovaný seznam rostlin po odebrání jedné rostliny dle zadání domácího úkolu v bodě 14:");
@@ -56,16 +55,16 @@ public class HousePlants {
 
         System.out.println();
         try {
-            plantManager.saveDataPlantsToNewFilePM(Settings.fileNameAfterChangesS(), plantListPM);
+            plantManager.saveDataPlantsToNewFile(Settings.fileNameAfterChanges(), plantListPM);
             System.out.println("Aktualizovaný seznam rostlin byl uložen do souboru: "
-                    + Settings.fileNameAfterChangesS());
+                    + Settings.fileNameAfterChanges());
         } catch (PlantException e) {
             System.err.println("Chyba při ukládání dat: " + e.getMessage());
             throw new RuntimeException(e);
         }
 
 
-        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNameAfterChangesS(), Settings.delimiterS());}
+        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNameAfterChanges(), Settings.delimiter());}
         catch (PlantException e) {
             System.err.println("Nepodařilo se načíst data ze souboru " + e.getLocalizedMessage());
             throw new RuntimeException(e);

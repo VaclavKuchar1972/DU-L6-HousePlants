@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Plant {
 
-    private String plantNameP = "";
-    private String plantNoteP = "";
-    private LocalDate plantPlantingDateP;
-    private LocalDate plantLastWateringDateP;
-    private int plantNormalWateringFrequencyP;
+    private String plantName = "";
+    private String plantNote = "";
+    private LocalDate plantPlantingDate;
+    private LocalDate plantLastWateringDate;
+    private int plantNormalWateringFrequency;
 
 
     // Tady vůbec nevím jestli mám správně ty konstruktory!!! ALE fachá to správně. ???
@@ -18,62 +18,62 @@ public class Plant {
     // Jsem naprosto mimo mísu... :-(
 
     // Konstruktor 1 - se všemi adtibuty
-    public Plant(String plantNameP, String plantNoteP, LocalDate plantPlantingDateP, LocalDate plantLastWateringDateP,
-                 int plantNormalWateringFrequencyP) throws PlantException {
-        this.plantNameP = plantNameP;
-        this.plantNoteP = plantNoteP;
-        this.plantPlantingDateP = plantPlantingDateP;
-        this.setPlantLastWateringDateP(plantLastWateringDateP);
-        this.setPlantNormalWateringFrequencyP(plantNormalWateringFrequencyP);
+    public Plant(String plantName, String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
+                 int plantNormalWateringFrequency) throws PlantException {
+        this.plantName = plantName;
+        this.plantNote = plantNoteP;
+        this.plantPlantingDate = plantPlantingDate;
+        this.setPlantLastWateringDate(plantLastWateringDate);
+        this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
     }
-    // Konstruktor 2 - "plantNoteP" nastaví jako prázdný řetězec a "plantLastWateringDateP" nastaví jako aktuální datum
-    public Plant(String plantNoteP, LocalDate plantLastWateringDateP) throws PlantException {
-        this.plantNameP = plantNameP;
-        this.plantNoteP = "";
-        this.plantPlantingDateP = plantPlantingDateP;
-        this.plantLastWateringDateP = LocalDate.now();
-        this.setPlantNormalWateringFrequencyP(plantNormalWateringFrequencyP);
+    // Konstruktor 2 - "plantNote" nastaví jako prázdný řetězec a "plantLastWateringDate" nastaví jako aktuální datum
+    public Plant(String plantNoteP, LocalDate plantLastWateringDate) throws PlantException {
+        this.plantName = plantName;
+        this.plantNote = "";
+        this.plantPlantingDate = plantPlantingDate;
+        this.plantLastWateringDate = LocalDate.now();
+        this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
     }
-    // Konstruktor 3 - "plantNoteP" nastaví jako prázdný řetězec, "plantLastWateringDateP" nastaví jako aktuální datum,
-    // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDateP" nastaví jako aktuální datum
-    public Plant(String plantNoteP, LocalDate plantPlantingDateP, LocalDate plantLastWateringDateP,
-                 int plantNormalWateringFrequencyP) throws PlantException {
-        this.plantNameP = plantNameP;
-        this.plantNoteP = "";
-        this.plantPlantingDateP = LocalDate.now();
-        this.plantLastWateringDateP = LocalDate.now();
-        this.plantNormalWateringFrequencyP = 7;
+    // Konstruktor 3 - "plantNote" nastaví jako prázdný řetězec, "plantLastWateringDate" nastaví jako aktuální datum,
+    // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDate" nastaví jako aktuální datum
+    public Plant(String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
+                 int plantNormalWateringFrequency) throws PlantException {
+        this.plantName = plantName;
+        this.plantNote = "";
+        this.plantPlantingDate = LocalDate.now();
+        this.plantLastWateringDate = LocalDate.now();
+        this.plantNormalWateringFrequency = 7;
     }
 
     public String getWateringInfo () {
-        return "   Název rostliny: " + plantNameP + "   Datum poslední zálivky: "
-                + plantLastWateringDateP.format(DateTimeFormatter.ofPattern("d.M.yyyy"))
+        return "   Název rostliny: " + plantName + "   Datum poslední zálivky: "
+                + plantLastWateringDate.format(DateTimeFormatter.ofPattern("d.M.yyyy"))
                 + "   Datum doporučené další zálivky: "
-                + plantLastWateringDateP.plusDays(plantNormalWateringFrequencyP)
+                + plantLastWateringDate.plusDays(plantNormalWateringFrequency)
                 .format(DateTimeFormatter.ofPattern("d.M.yyyy"));
     }
 
     // Všechny přístupové metody
-    public String getPlantNameP() {return plantNameP;}
-    public void setPlantNameP(String plantNameP) {this.plantNameP = plantNameP;}
-    public String getPlantNoteP() {return plantNoteP;}
-    public void setPlantNoteP(String plantNoteP) {this.plantNoteP = plantNoteP;}
-    public LocalDate getPlantPlantingDateP() {return plantPlantingDateP;}
-    public void setPlantPlantingDateP(LocalDate plantPlantingDateP) {this.plantPlantingDateP = plantPlantingDateP;}
-    public LocalDate getPlantLastWateringDateP() {return plantLastWateringDateP;}
-    public void setPlantLastWateringDateP(LocalDate plantLastWateringDateP) throws PlantException {
-        if (plantLastWateringDateP.isBefore(plantPlantingDateP)) {
+    public String getPlantName() {return plantName;}
+    public void setPlantName(String plantName) {this.plantName = plantName;}
+    public String getPlantNote() {return plantNote;}
+    public void setPlantNote(String plantNote) {this.plantNote = plantNote;}
+    public LocalDate getPlantPlantingDate() {return plantPlantingDate;}
+    public void setPlantPlantingDate(LocalDate plantPlantingDate) {this.plantPlantingDate = plantPlantingDate;}
+    public LocalDate getPlantLastWateringDate() {return plantLastWateringDate;}
+    public void setPlantLastWateringDate(LocalDate plantLastWateringDate) throws PlantException {
+        if (plantLastWateringDate.isBefore(plantPlantingDate)) {
             throw new PlantException("Chyba - datum poslední zálivky je před vysazením rostliny");
         }
-        this.plantLastWateringDateP = plantLastWateringDateP;
+        this.plantLastWateringDate = plantLastWateringDate;
     }
-    public int getPlantNormalWateringFrequencyP() {return plantNormalWateringFrequencyP;}
-    public void setPlantNormalWateringFrequencyP(int plantNormalWateringFrequencyP) throws PlantException {
-        if (plantNormalWateringFrequencyP < 1) {
+    public int getPlantNormalWateringFrequency() {return plantNormalWateringFrequency;}
+    public void setPlantNormalWateringFrequency(int plantNormalWateringFrequency) throws PlantException {
+        if (plantNormalWateringFrequency < 1) {
             throw new PlantException("Chyba - frekvence zálivky je menší než jeden den, její hodnota je nyní: "
-                    + plantNormalWateringFrequencyP);
+                    + plantNormalWateringFrequency);
         }
-        this.plantNormalWateringFrequencyP = plantNormalWateringFrequencyP;
+        this.plantNormalWateringFrequency = plantNormalWateringFrequency;
     }
 
 }
