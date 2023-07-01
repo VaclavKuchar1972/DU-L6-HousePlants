@@ -22,7 +22,7 @@ public class PlantManager {
 
     public Plant getPlantFromIdex(int indexPM) {return plantList.get(indexPM);}
 
-    public void loadDataPlantsFromFilePM (String fileNamePrimaryPM, String delimiterPM) throws PlantException {
+    public void loadDataPlantsFromFile(String fileNamePrimaryPM, String delimiterPM) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;
         int plantNormalWateringFrequency = 0;
         String line = ""; String plantName = ""; String plantNote = "";

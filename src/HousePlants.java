@@ -11,7 +11,7 @@ public class HousePlants {
 
         PlantManager plantManager = new PlantManager();
 
-        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNamePrimary(), Settings.delimiter());}
+        try {plantManager.loadDataPlantsFromFile(Settings.fileNamePrimary(), Settings.delimiter());}
         catch (PlantException e) {
             System.err.println("Nepodařilo se načíst data ze souboru " + e.getLocalizedMessage());
             throw new RuntimeException(e);
@@ -64,7 +64,7 @@ public class HousePlants {
         }
 
 
-        try {plantManager.loadDataPlantsFromFilePM(Settings.fileNameAfterChanges(), Settings.delimiter());}
+        try {plantManager.loadDataPlantsFromFile(Settings.fileNameAfterChanges(), Settings.delimiter());}
         catch (PlantException e) {
             System.err.println("Nepodařilo se načíst data ze souboru " + e.getLocalizedMessage());
             throw new RuntimeException(e);
