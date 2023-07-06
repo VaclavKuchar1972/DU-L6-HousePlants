@@ -47,6 +47,11 @@ public class HousePlants {
         System.out.println("Informace o zálivce dle zadání domácího úkolu v bodě 13:");
         for (Plant plant : plantList) {printPlantsComputerOutput(plant);}
 
+        System.out.println();
+        System.out.println("Informace o zálivce dle zadání domácího úkolu v bodě 13 z GETTERu ve třídě Plant:");
+        for (Plant plant : plantList) {
+            System.out.println(plant.getWateringInfo());
+        }
 
         try {
             plantList.add(new Plant("Jahodník", "na zábradlí balkónu", LocalDate.now(),
