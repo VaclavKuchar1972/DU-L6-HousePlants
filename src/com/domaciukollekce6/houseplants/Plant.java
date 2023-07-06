@@ -12,37 +12,28 @@ public class Plant {
     private int plantNormalWateringFrequency;
 
 
-    // Tady vůbec nevím jestli mám správně ty konstruktory!!! ALE fachá to správně. ???
-    // Jak to, že to funguje, když je v těch závorkách, řádek 30 a 39 nemám všechny - ty položky???
-    // Jak to, že, když je tam doplním všechny, tak to celý zčervená???
-    // Jsem naprosto mimo mísu... :-(
+    // NO NEVÍM, SNAD to chápu!? :D
 
     // Konstruktor 1 - se všemi adtibuty
-    public Plant(String plantName, String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
+    public Plant(String plantName, String plantNote, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
                  int plantNormalWateringFrequency) throws PlantException {
         this.plantName = plantName;
-        this.plantNote = plantNoteP;
+        this.plantNote = plantNote;
         this.plantPlantingDate = plantPlantingDate;
         this.setPlantLastWateringDate(plantLastWateringDate);
         this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
     }
+    // OPRAVA
     // Konstruktor 2 - "plantNote" nastaví jako prázdný řetězec a "plantLastWateringDate" nastaví jako aktuální datum
-    public Plant(String plantNoteP, LocalDate plantLastWateringDate) throws PlantException {
-        this.plantName = plantName;
-        this.plantNote = "";
-        this.plantPlantingDate = plantPlantingDate;
-        this.plantLastWateringDate = LocalDate.now();
-        this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
+    public Plant(String plantNote, LocalDate plantLastWateringDate) throws PlantException {
+        this("", "", null, LocalDate.now(), 0);
     }
+    // OPRAVA
     // Konstruktor 3 - "plantNote" nastaví jako prázdný řetězec, "plantLastWateringDate" nastaví jako aktuální datum,
     // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDate" nastaví jako aktuální datum
     public Plant(String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
                  int plantNormalWateringFrequency) throws PlantException {
-        this.plantName = plantName;
-        this.plantNote = "";
-        this.plantPlantingDate = LocalDate.now();
-        this.plantLastWateringDate = LocalDate.now();
-        this.plantNormalWateringFrequency = 7;
+        this("", "", LocalDate.now(), LocalDate.now(), 7);
     }
 
     public String getWateringInfo () {
