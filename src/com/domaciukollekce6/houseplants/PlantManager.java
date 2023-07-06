@@ -10,30 +10,25 @@ import java.util.Scanner;
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
 public class PlantManager {
-    private List<Plant> plantList = new ArrayList<>();
 
-    // Předání kopie seznamu tak, aby ho nikdo zvenčí nemohl nikdo měnit (přikázal lektor Martin)
-    public List<Plant> getPlantList() {return new ArrayList<>(plantList);}
+    private List<Plant> plantList;
+    public PlantManager() {this.plantList = new ArrayList<>();}
+    
+    public void addPlant(Plant plant) {plantList.add(plant);}
+    public void removePlant(Plant plant) {plantList.remove(plant);}
 
-    public void addPlant(Plant plant) {
-        plantList.add(plant);}
-    public void removePlant(Plant plant) {
-        plantList.remove(plant);}
-
-    public Plant getPlantFromIdex(int indexPM) {return plantList.get(indexPM);}
-
-    public void loadDataPlantsFromFile(String fileNamePrimaryPM, String delimiterPM) throws PlantException {
+    public void loadDataPlantsFromFile(String fileNamePrimary, String delimiter) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;
         int plantNormalWateringFrequency = 0;
         String line = ""; String plantName = ""; String plantNote = "";
         String[] items = new String[0];
         LocalDate plantLastWateringDate = null; LocalDate plantPlantingDate = null;
-        try (Scanner scannerLoadData = new Scanner(new BufferedReader(new FileReader(fileNamePrimaryPM)))) {
+        try (Scanner scannerLoadData = new Scanner(new BufferedReader(new FileReader(fileNamePrimary)))) {
             while (scannerLoadData.hasNextLine()) {
                 helpLineNumber = helpLineNumber + 1;
                 line = scannerLoadData.nextLine();
                 // Oddělení jednotlivých dat stažených ze souboru (teď máme tabulátor, kterej se mi vůbec nelíbí)
-                items = line.split(delimiterPM);
+                items = line.split(delimiter);
                 if (items.length != 5) {
                     throw new PlantException(
                             "Chyba - špatný počet položek na řádku: " + helpLineNumber + ": " + line);
@@ -44,12 +39,12 @@ public class PlantManager {
                 plantLastWateringDate = LocalDate.parse(items[3]);
                 helpBadDateIdentifokator = 4;
                 plantPlantingDate = LocalDate.parse(items[4]);
-                Plant newPlantPM = new Plant(plantName, plantNote, plantPlantingDate, plantLastWateringDate,
+                Plant newPlant = new Plant(plantName, plantNote, plantPlantingDate, plantLastWateringDate,
                         plantNormalWateringFrequency);
-                plantList.add(newPlantPM);
+                plantList.add(newPlant);
             }
         } catch (FileNotFoundException e) {
-            throw new PlantException("Soubor " + fileNamePrimaryPM + "nebyl nalezen! " + e.getLocalizedMessage());
+            throw new PlantException("Soubor " + fileNamePrimary + "nebyl nalezen! " + e.getLocalizedMessage());
         } catch (NumberFormatException e) {
             throw new PlantException("Chyba - v databázi není číslo: " + items[2]
                     + " na řádku: " + helpLineNumber + ": " + line);
@@ -58,7 +53,8 @@ public class PlantManager {
                     + " na řádku: " + helpLineNumber + ": " + line);
         }
     }
-    public void saveDataPlantsToNewFile(String fileName, List<Plant> plantList) throws PlantException {
+
+    public void saveDataPlantsToNewFile(String fileName, List<Plant> plants) throws PlantException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Plant plant : plantList) {
                 writer.write(plant.getPlantName() + delimiter() + plant.getPlantNote() + delimiter()
@@ -67,9 +63,10 @@ public class PlantManager {
                         + plant.getPlantPlantingDate());
                 writer.newLine();
             }
-        } catch (IOException e) {
-            throw new PlantException("Chyba při ukládání dat do souboru: " + e.getMessage());
-        }
+        } catch (IOException e) {throw new PlantException("Chyba při ukládání dat do souboru: " + e.getMessage());}
     }
+
+    // Předání kopie seznamu tak, aby ho nikdo zvenčí nemohl nikdo měnit (přikázal lektor Martin)
+    public List<Plant> getPlantList() {return new ArrayList<>(plantList);}
 
 }
