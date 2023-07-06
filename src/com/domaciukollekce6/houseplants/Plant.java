@@ -67,4 +67,6 @@ public class Plant {
         this.plantNormalWateringFrequency = plantNormalWateringFrequency;
     }
 
+
+
 }
