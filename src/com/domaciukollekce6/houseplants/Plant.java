@@ -3,7 +3,8 @@ package com.domaciukollekce6.houseplants;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Plant {
+// Úkol lekce 6 bod 2 - 1. Úprava třídy Plant pro řazení rostlin podle názvu pomocí Collections.sort
+public class Plant implements Comparable<Plant> {
 
     private String plantName = "";
     private String plantNote = "";
@@ -12,7 +13,7 @@ public class Plant {
     private int plantNormalWateringFrequency;
 
 
-    // NO NEVÍM, SNAD to chápu!? :D
+    // NO NEVÍM, SNAD to chápu!? :D Možná.
 
     // Konstruktor 1 - se všemi adtibuty
     public Plant(String plantName, String plantNote, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
@@ -23,12 +24,10 @@ public class Plant {
         this.setPlantLastWateringDate(plantLastWateringDate);
         this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
     }
-    // OPRAVA
     // Konstruktor 2 - "plantNote" nastaví jako prázdný řetězec a "plantLastWateringDate" nastaví jako aktuální datum
     public Plant(String plantNote, LocalDate plantLastWateringDate) throws PlantException {
         this("", "", null, LocalDate.now(), 0);
     }
-    // OPRAVA
     // Konstruktor 3 - "plantNote" nastaví jako prázdný řetězec, "plantLastWateringDate" nastaví jako aktuální datum,
     // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDate" nastaví jako aktuální datum
     public Plant(String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
@@ -67,6 +66,9 @@ public class Plant {
         this.plantNormalWateringFrequency = plantNormalWateringFrequency;
     }
 
+    // Úkol lekce 6 bod 2 - 2. Úprava třídy Plant pro řazení rostlin podle názvu pomocí Collections.sort
+    @Override
+    public int compareTo(Plant otherPlant) {return this.plantName.compareTo(otherPlant.getPlantName());}
 
 
 }

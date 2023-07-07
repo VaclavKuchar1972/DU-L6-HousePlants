@@ -5,6 +5,8 @@ import com.domaciukollekce6.houseplants.Settings;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
@@ -92,6 +94,14 @@ public class HousePlants {
         System.out.println();
         System.out.println("Surová data z VÝSTUPNÍHO souboru DB-ListOfPlantsAfterChanges.txt:");
         for (Plant plant : plantList) {printPlantsComputerOutput(plant);}
+
+        // Seřazení rostlin dle názvu od A do Z a zobrazení - domácí úkol lekce 6 bod 3
+        Collections.sort(plantList);
+        System.out.println();
+        System.out.println("Seřazený seznam rostlin dle názvu:");
+        for (Plant plant : plantList) {
+            printPlantsPeopleDateOutput(plant);
+        }
 
     }
 
