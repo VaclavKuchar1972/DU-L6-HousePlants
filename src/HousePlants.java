@@ -1,7 +1,4 @@
-import com.domaciukollekce6.houseplants.Plant;
-import com.domaciukollekce6.houseplants.PlantException;
-import com.domaciukollekce6.houseplants.PlantManager;
-import com.domaciukollekce6.houseplants.Settings;
+import com.domaciukollekce6.houseplants.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -98,10 +95,15 @@ public class HousePlants {
         // Seřazení rostlin dle názvu od A do Z a zobrazení - domácí úkol lekce 6 bod 3
         Collections.sort(plantList);
         System.out.println();
-        System.out.println("Seřazený seznam rostlin dle názvu:");
-        for (Plant plant : plantList) {
-            printPlantsPeopleDateOutput(plant);
-        }
+        System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
+        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+
+        // Seřazení rostlin dle data poslední zálivky od nejstaršího po nejnovější - domácí úkol lekce 6 bod 3b, 4 a 5
+        Collections.sort(plantList, new PlantLastWateringDateComparator());
+        System.out.println();
+        System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
+                "která byla zalita před nejdelší dobou:");
+        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
 
     }
 
