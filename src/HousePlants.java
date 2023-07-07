@@ -2,10 +2,7 @@ import com.domaciukollekce6.houseplants.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.HashSet;
+import java.util.*;
 
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
@@ -25,10 +22,17 @@ public class HousePlants {
     }
     public static void main(String[] args) throws PlantException {
 
+        // Pomocná proměnná pro vyhledávání rostlin zasazených za poslední měsíc od dnešního datumu
+        LocalDate lastMonthPlanting = LocalDate.now().minusMonths(1);
+
         PlantManager plantManager = new PlantManager();
 
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 1
         HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+
+        // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 1
+        HashSet<Plant> plantsPlantingLastMonth = new HashSet<>();
+
 
         try {plantManager.loadDataPlantsFromFile(Settings.fileNamePrimary(), delimiter());}
         catch (PlantException e) {
@@ -116,7 +120,13 @@ public class HousePlants {
             System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
 
-
+        // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 2
+        for (Plant plant : plantList) {
+            if (plant.getPlantPlantingDate().isAfter(lastMonthPlanting)) {plantsPlantingLastMonth.add(plant);}
+        }
+        System.out.println();
+        System.out.println("Rostliny zasazené za poslední měsíc od dnešního dne:");
+        for (Plant plant : plantsPlantingLastMonth) {printPlantsPeopleDateOutput(plant);}
 
     }
 
