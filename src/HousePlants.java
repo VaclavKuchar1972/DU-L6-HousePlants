@@ -5,14 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashSet;
 
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
 public class HousePlants {
 
-    // I když jsi mi psal, že to mám dát do třídy Plant, napsal jsi mi i přesně to jak to beru, ano jsou to z mého
-    // pohledu čistě pomocné metody pro třídu HousePlants, čistě z toho důvodu, aby se mi neopakoval stejný kód na více
-    // místech, nic víc, žádná atomová věda. :-) Děkuji. V žádných jiných třídách tyto metody nejsou a nebudou potřeba.
+    // Pomocné metody pro třídu HousePlants
     private static void printPlantsPeopleDateOutput(Plant plant) {
         System.out.println(delimiter() + plant.getPlantName() + delimiter() + plant.getPlantNote() + delimiter()
                 + plant.getPlantNormalWateringFrequency() + delimiter()
@@ -27,6 +26,9 @@ public class HousePlants {
     public static void main(String[] args) throws PlantException {
 
         PlantManager plantManager = new PlantManager();
+
+        // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 1
+        HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
 
         try {plantManager.loadDataPlantsFromFile(Settings.fileNamePrimary(), delimiter());}
         catch (PlantException e) {
@@ -104,6 +106,17 @@ public class HousePlants {
         System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
                 "která byla zalita před nejdelší dobou:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+
+        // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 2
+        System.out.println();
+        System.out.println("Výpis dnů, kdy byla zasazena alespoň jedna rostlina:");
+        // Ten HashSet evidentně v základu ignoruje shodné datumy, jinak by to nemohlo fungovat - ale funguje. ???
+        for (Plant plant : plantList) {uniquePlantingDates.add(plant.getPlantPlantingDate());}
+        for (LocalDate date : uniquePlantingDates) {
+            System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+
+
 
     }
 
