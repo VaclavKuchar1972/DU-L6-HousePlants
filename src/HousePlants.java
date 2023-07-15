@@ -105,15 +105,13 @@ public class HousePlants {
         System.out.println("Surová data z VÝSTUPNÍHO souboru DB-ListOfPlantsAfterChanges.txt:");
         for (Plant plant : plantList) {printPlantsComputerOutput(plant);}
 
-        // OPRAVA - Řazení volané metodou v PlantManageru
+        // OPRAVA - Řazení volané metodou v PlantManageru - ALE PODLE MĚ TO JE ŠPATNĚ
         // Seřazení rostlin dle názvu od A do Z a zobrazení - domácí úkol lekce 6 bod 3
         plantManager.sortPlantsByName();
         plantList = plantManager.getPlantList();
         System.out.println();
         System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
-        for (Plant plant : plantList) {
-            printPlantsPeopleDateOutput(plant);
-
+        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);
         }
 
 

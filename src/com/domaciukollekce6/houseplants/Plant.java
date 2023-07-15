@@ -74,6 +74,9 @@ public class Plant implements Comparable<Plant>{
     @Override
     public int compareTo(Plant otherPlant) {return this.plantName.compareTo(otherPlant.getPlantName());}
 
+
+    /* Tyhle dvě věci níže mi poradil ChatGPT4, bez nich tam jsou stále duplicity po řazení a s nimi bez té metody
+    navíc, která v PlantManageru odstraní duplicitní položky tam jsou duplicity stejně */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,15 +84,7 @@ public class Plant implements Comparable<Plant>{
         Plant plant = (Plant) o;
         return Objects.equals(plantName, plant.plantName);
     }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(plantName);
-    }
-
-    //@Override
-    //public int compareTo(Plant otherPlant) {
-    //return this.plantLastWateringDate.compareTo(otherPlant.getPlantLastWateringDate());
-    //}
+    public int hashCode() {return Objects.hash(plantName);}
 
 }

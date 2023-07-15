@@ -20,12 +20,6 @@ public class PlantManager {
         plantList.removeIf(plant -> plant.getPlantName().equals(plantName));
     }
 
-    //HashSet<Plant> sortPlantsByName = new HashSet<>();
-
-    // public void sortPlantsByName() {
-    //    plantList.sort(Comparator.comparing(Plant::getPlantName));
-    //}
-
     // Nový kod na řazení s odstraněním duplicit - ALE TO SE MI FAKT NELÍBÍ - Již to funguje jak má a po sřazení nejsou
     // rostliny duplicitní, ale podle mě to není dobře!!! - ALE nevím co s tím jiného. :-(
     private void removeDuplicatePlants() {
@@ -45,8 +39,11 @@ public class PlantManager {
     //    }
     //}
 
+    //HashSet<Plant> sortPlantsByName = new HashSet<>();
 
-
+    // public void sortPlantsByName() {
+    //    plantList.sort(Comparator.comparing(Plant::getPlantName));
+    //}
 
 //    public void sortPlantsByLastWateringDate() {
  //       Collections.sort(plantList, new PlantLastWateringDateComparator());
@@ -105,3 +102,17 @@ public class PlantManager {
     public List<Plant> getPlantList() {return new ArrayList<>(plantList);}
 
 }
+
+// MEMENTO
+// Pomoc při vývoji, abych věděl co se děje
+//public void printPlants() {
+//    for (Plant plant : plantList) {
+//        System.out.println(plant.getPlantName());
+//    }
+//}
+
+//HashSet<Plant> sortPlantsByName = new HashSet<>();
+
+// public void sortPlantsByName() {
+//    plantList.sort(Comparator.comparing(Plant::getPlantName));
+//}
