@@ -28,10 +28,10 @@ public class HousePlants {
         PlantManager plantManager = new PlantManager();
 
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 1
-         HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+        // HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
 
         // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 1
-        HashSet<Plant> plantsPlantingLastMonth = new HashSet<>();
+        // HashSet<Plant> plantsPlantingLastMonth = new HashSet<>();
 
 
         try {plantManager.loadDataPlantsFromFile(Settings.fileNamePrimary(), delimiter());}
@@ -120,17 +120,16 @@ public class HousePlants {
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 2
         System.out.println();
         plantManager.printUniquePlantingDates();
-
-
-
-
         // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 2
-        for (Plant plant : plantList) {
-            if (plant.getPlantPlantingDate().isAfter(lastMonthPlanting)) {plantsPlantingLastMonth.add(plant);}
-        }
         System.out.println();
-        System.out.println("Rostliny zasazené za poslední měsíc od dnešního dne:");
-        for (Plant plant : plantsPlantingLastMonth) {printPlantsPeopleDateOutput(plant);}
+        plantManager.printRecentPlantings();
+
+        //for (Plant plant : plantList) {
+        //    if (plant.getPlantPlantingDate().isAfter(lastMonthPlanting)) {plantsPlantingLastMonth.add(plant);}
+        //}
+        //System.out.println();
+        //System.out.println("Rostliny zasazené za poslední měsíc od dnešního dne:");
+        //for (Plant plant : plantsPlantingLastMonth) {printPlantsPeopleDateOutput(plant);}
 
     }
 

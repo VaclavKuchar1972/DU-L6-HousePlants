@@ -4,16 +4,16 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
 public class PlantManager {
 
     private List<Plant> plantList;
-
-    // HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
-
 
     // Toto taky nefunguje i s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
     // zakomentovaný v této sérii poznámek, tak to nechci, myslím, že můžu mít doma stejnou rostlinu a odlišit jí jen
@@ -63,8 +63,6 @@ public class PlantManager {
     public void sortPlantsByName() {Collections.sort(plantList); removeDuplicatePlants();}
     //public void sortPlantsByLastWateringDate() {Collections.sort(plantList); /*removeDuplicatePlants();*/}
     public void sortPlantsByLastWateringDate() {plantList.sort(new PlantLastWateringDateComparator());}
-
-
     public void printUniquePlantingDates() {
         HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
         for (Plant plant : plantList) {uniquePlantingDates.add(plant.getPlantPlantingDate());}
@@ -73,6 +71,32 @@ public class PlantManager {
             System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
     }
+
+
+
+
+    public void printRecentPlantings() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate oneMonthAgo = currentDate.minus(1, ChronoUnit.MONTHS);
+
+        System.out.println("Rostliny zasazené za poslední měsíc:");
+
+        HashSet<LocalDate> uniqueDates = new HashSet<>();
+
+        for (Plant plant : plantList) {
+            LocalDate plantingDate = plant.getPlantPlantingDate();
+            if (plantingDate.isAfter(oneMonthAgo) || plantingDate.isEqual(oneMonthAgo)) {
+                uniqueDates.add(plantingDate);
+            }
+        }
+
+        for (LocalDate date : uniqueDates) {
+            System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+    }
+
+
+
 
 
 
