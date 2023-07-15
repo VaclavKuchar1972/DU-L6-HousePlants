@@ -123,6 +123,7 @@ public class HousePlants {
         System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
         for (Plant plant : plantList) {
             printPlantsPeopleDateOutput(plant);
+
         }
 
 
