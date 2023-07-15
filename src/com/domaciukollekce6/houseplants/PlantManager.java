@@ -11,7 +11,7 @@ public class PlantManager {
 
     private List<Plant> plantList;
 
-    HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+    // HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
 
 
     // Toto taky nefunguje i s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
@@ -60,7 +60,11 @@ public class PlantManager {
     // removeDuplicatePlants();}
 
     public void sortPlantsByName() {Collections.sort(plantList); removeDuplicatePlants();}
-    public void sortPlantsByLastWateringDate() {Collections.sort(plantList); /*removeDuplicatePlants();*/}
+    //public void sortPlantsByLastWateringDate() {Collections.sort(plantList); /*removeDuplicatePlants();*/}
+    public void sortPlantsByLastWateringDate() {plantList.sort(new PlantLastWateringDateComparator());}
+
+
+
 
 
 
