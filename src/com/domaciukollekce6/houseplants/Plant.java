@@ -25,14 +25,17 @@ public class Plant implements Comparable<Plant> {
         this.setPlantNormalWateringFrequency(plantNormalWateringFrequency);
     }
     // Konstruktor 2 - "plantNote" nastaví jako prázdný řetězec a "plantLastWateringDate" nastaví jako aktuální datum
-    public Plant(String plantNote, LocalDate plantLastWateringDate) throws PlantException {
-        this("", "", null, LocalDate.now(), 0);
+
+    // AHA!!! do atributů Plant píši ty který jsou vyjádřeny neurčitě názvem objktu (proměnné) a ty ktré určuji natvrdo
+    // tam nepíšu!
+    public Plant(String plantName, LocalDate plantPlantingDate, int plantNormalWateringFrequency)
+            throws PlantException {
+        this(plantName, "", plantPlantingDate, LocalDate.now(), plantNormalWateringFrequency);
     }
     // Konstruktor 3 - "plantNote" nastaví jako prázdný řetězec, "plantLastWateringDate" nastaví jako aktuální datum,
     // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDate" nastaví jako aktuální datum
-    public Plant(String plantNoteP, LocalDate plantPlantingDate, LocalDate plantLastWateringDate,
-                 int plantNormalWateringFrequency) throws PlantException {
-        this("", "", LocalDate.now(), LocalDate.now(), 7);
+    public Plant(String plantName, LocalDate plantPlantingDate) throws PlantException {
+        this(plantName, "", plantPlantingDate, LocalDate.now(), 7);
     }
 
     public String getWateringInfo () {
