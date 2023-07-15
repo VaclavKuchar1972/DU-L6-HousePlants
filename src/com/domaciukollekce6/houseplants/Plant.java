@@ -2,9 +2,10 @@ package com.domaciukollekce6.houseplants;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 // Úkol lekce 6 bod 2 - 1. Úprava třídy Plant pro řazení rostlin podle názvu pomocí Collections.sort
-public class Plant implements Comparable<Plant> {
+public class Plant implements Comparable<Plant>{
 
     private String plantName = "";
     private String plantNote = "";
@@ -73,5 +74,22 @@ public class Plant implements Comparable<Plant> {
     @Override
     public int compareTo(Plant otherPlant) {return this.plantName.compareTo(otherPlant.getPlantName());}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plant plant = (Plant) o;
+        return Objects.equals(plantName, plant.plantName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plantName);
+    }
+
+    //@Override
+    //public int compareTo(Plant otherPlant) {
+        //return this.plantLastWateringDate.compareTo(otherPlant.getPlantLastWateringDate());
+    //}
 
 }

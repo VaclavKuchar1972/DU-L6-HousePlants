@@ -3,9 +3,7 @@ package com.domaciukollekce6.houseplants;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.domaciukollekce6.houseplants.Settings.delimiter;
 
@@ -22,6 +20,19 @@ public class PlantManager {
         plantList.removeIf(plant -> plant.getPlantName().equals(plantName));
     }
 
+    public void sortPlantsByName() {
+        plantList.sort(Comparator.comparing(Plant::getPlantName));
+    }
+
+    public void printPlants() {
+        for (Plant plant : plantList) {
+            System.out.println(plant.getPlantName());
+        }
+    }
+
+//    public void sortPlantsByLastWateringDate() {
+ //       Collections.sort(plantList, new PlantLastWateringDateComparator());
+ //   }
 
     public void loadDataPlantsFromFile(String fileNamePrimary, String delimiter) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;

@@ -77,17 +77,15 @@ public class HousePlants {
         System.out.println("Aktualizovaný seznam rostlin po přidání dvou rostlin dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
 
-        // Oprava odebírání ze skutečného seznamu a ne do jeho kopie, jak to bylo před tím
+        // Oprava odebírání ze skutečného seznamu a ne z jeho kopie, jak to bylo před tím
         // !!! na toto do budoucna bacha! - to je fatální chyba (to je pro mě) :-)
-        plantManager.removePlantByName("Sukulent v koupelně");
-        plantList = plantManager.getPlantList();
+        plantManager.removePlantByName("Sukulent v koupelně"); plantList = plantManager.getPlantList();
 
         System.out.println();
         System.out.println
                 ("Aktualizovaný seznam rostlin po odebrání jedné rostliny dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
 
-        //plantList = plantManager.getPlantList();
         System.out.println();
         try {
             plantManager.saveDataPlantsToNewFile(Settings.fileNameAfterChanges(), plantList);
@@ -108,17 +106,38 @@ public class HousePlants {
         for (Plant plant : plantList) {printPlantsComputerOutput(plant);}
 
         // Seřazení rostlin dle názvu od A do Z a zobrazení - domácí úkol lekce 6 bod 3
-        Collections.sort(plantList);
+ //       Collections.sort(plantList);
+ //       System.out.println();
+ //       System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
+ //       for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+
+        plantManager.sortPlantsByName();  // Přidáno - seřazení rostlin dle názvu
+        plantManager.printPlants();
+
+        plantList = plantManager.getPlantList();
+
+        //List<Plant> sortedPlants = plantManager.getPlantList();
+        //plantList = plantManager.getPlantList();
+
         System.out.println();
         System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
-        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+        for (Plant plant : plantList) {
+            printPlantsPeopleDateOutput(plant);
+        }
 
+
+
+
+
+        // ORAVA ŘAZENÍ - koná se nově přímo v PlantManageru
         // Seřazení rostlin dle data poslední zálivky od nejstaršího po nejnovější - domácí úkol lekce 6 bod 3b, 4 a 5
-        Collections.sort(plantList, new PlantLastWateringDateComparator());
-        System.out.println();
-        System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
-                "která byla zalita před nejdelší dobou:");
-        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+//        plantManager.sortPlantsByLastWateringDate(); plantList = plantManager.getPlantList();
+//        System.out.println();
+//        System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
+//                "která byla zalita před nejdelší dobou:");
+//        for (Plant plant : plantList) {
+//            printPlantsPeopleDateOutput(plant);
+//        }
 
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 2
         System.out.println();
