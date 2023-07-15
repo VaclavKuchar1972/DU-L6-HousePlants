@@ -2,6 +2,7 @@ package com.domaciukollekce6.houseplants;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
@@ -64,7 +65,14 @@ public class PlantManager {
     public void sortPlantsByLastWateringDate() {plantList.sort(new PlantLastWateringDateComparator());}
 
 
-
+    public void printUniquePlantingDates() {
+        HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+        for (Plant plant : plantList) {uniquePlantingDates.add(plant.getPlantPlantingDate());}
+        System.out.println("Výpis dnů, kdy byla zasazena alespoň jedna rostlina:");
+        for (LocalDate date : uniquePlantingDates) {
+            System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+    }
 
 
 

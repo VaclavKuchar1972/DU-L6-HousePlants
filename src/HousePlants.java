@@ -117,18 +117,12 @@ public class HousePlants {
         System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
                 "která byla zalita před nejdelší dobou:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
-
-
-
-
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 2
         System.out.println();
-        System.out.println("Výpis dnů, kdy byla zasazena alespoň jedna rostlina:");
-        // Ten HashSet evidentně v základu ignoruje shodné datumy, jinak by to nemohlo fungovat - ale funguje. ???
-        for (Plant plant : plantList) {uniquePlantingDates.add(plant.getPlantPlantingDate());}
-        for (LocalDate date : uniquePlantingDates) {
-            System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        }
+        plantManager.printUniquePlantingDates();
+
+
+
 
         // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 2
         for (Plant plant : plantList) {
