@@ -28,7 +28,7 @@ public class HousePlants {
         PlantManager plantManager = new PlantManager();
 
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 1
-        HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+         HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
 
         // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 1
         HashSet<Plant> plantsPlantingLastMonth = new HashSet<>();
@@ -105,28 +105,21 @@ public class HousePlants {
         System.out.println("Surová data z VÝSTUPNÍHO souboru DB-ListOfPlantsAfterChanges.txt:");
         for (Plant plant : plantList) {printPlantsComputerOutput(plant);}
 
-        // OPRAVA - Řazení volané metodou v PlantManageru - ALE PODLE MĚ TO JE ŠPATNĚ
+        // OPRAVA - Řazení volané metodou v PlantManageru - ALE PODLE MĚ TO JE CELÉ ŠPATNĚ viz. PlantManager
         // Seřazení rostlin dle názvu od A do Z a zobrazení - domácí úkol lekce 6 bod 3
-        plantManager.sortPlantsByName();
-        plantList = plantManager.getPlantList();
+        plantManager.sortPlantsByName(); plantList = plantManager.getPlantList();
         System.out.println();
         System.out.println("Seřazený seznam rostlin dle názvu rostliny:");
-        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);
-        }
-
-
-
-
-
-        // ORAVA ŘAZENÍ - koná se nově přímo v PlantManageru
+        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
         // Seřazení rostlin dle data poslední zálivky od nejstaršího po nejnovější - domácí úkol lekce 6 bod 3b, 4 a 5
-//        plantManager.sortPlantsByLastWateringDate(); plantList = plantManager.getPlantList();
-//        System.out.println();
-//        System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
-//                "která byla zalita před nejdelší dobou:");
-//        for (Plant plant : plantList) {
-//            printPlantsPeopleDateOutput(plant);
-//        }
+        plantManager.sortPlantsByLastWateringDate(); plantList = plantManager.getPlantList();
+        System.out.println();
+        System.out.println("Seřazený seznam rostlin dle data poslední zálivky od rostliny, " +
+                "která byla zalita před nejdelší dobou:");
+        for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
+
+
+
 
         // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 2
         System.out.println();

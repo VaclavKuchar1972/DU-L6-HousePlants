@@ -10,7 +10,26 @@ import static com.domaciukollekce6.houseplants.Settings.delimiter;
 public class PlantManager {
 
     private List<Plant> plantList;
-    public PlantManager() {this.plantList = new ArrayList<>();}
+
+    HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
+
+
+    // Toto taky nefunguje i s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
+    // zakomentovaný v této sérii poznámek, tak to nechci, myslím, že můžu mít doma stejnou rostlinu a odlišit jí jen
+    // např. poznámkou tím umístením, Bobkovej list, je stále Bobkovej list, jen je v jiným květináči
+
+    // private HashSet<String> uniquePlantNames; // HashSet pro kontrolu unikátnosti názvů rostlin
+    //public void addPlant(Plant plant) {
+    //    if (uniquePlantNames.add(plant.getPlantName())) { // Kontrola unikátnosti názvu před přidáním
+    //        plantList.add(plant);
+    //    }
+    //}
+
+
+    public PlantManager() {
+        this.plantList = new ArrayList<>();
+        /* this.uniquePlantNames = new HashSet<>(); // Inicializace HashSetu */
+    }
     
     public void addPlant(Plant plant) {plantList.add(plant);}
 
@@ -20,21 +39,30 @@ public class PlantManager {
         plantList.removeIf(plant -> plant.getPlantName().equals(plantName));
     }
 
-    // Nový kod na řazení s odstraněním duplicit - ALE TO SE MI FAKT NELÍBÍ - Již to funguje jak má a po sřazení nejsou
+    // DUPLICITAMI MYSLÍM, že po vySortování list vypadal takto:
+    // 	Fialka 1	Popis fialky - je fialová a hezká	3	12.5.2021	1.1.2021
+    //	Fialka 1	Popis fialky - je fialová a hezká	3	12.5.2021	1.1.2021
+    //	Jahodník	na zábradlí balkónu	3	15.7.2023	15.7.2023
+    //	Jahodník	na zábradlí balkónu	3	15.7.2023	15.7.2023
+    //	Mochíto Máta	na balkóně	2	15.7.2023	15.7.2023
+    //	Mochíto Máta	na balkóně	2	15.7.2023	15.7.2023
+    //	Vánoční hvězda bez poznámky		4	10.5.2021	1.4.2021
+    //	Vánoční hvězda bez poznámky		4	10.5.2021	1.4.2021
+    // Duplicity názvů samotných rostlin bych spíše uvítal a jejich skutečnou duplicitu vychytal plantNote
+    // nebo něčím jiným
+
+    // Nový kód na řazení s odstraněním duplicit - ALE TO SE MI FAKT NELÍBÍ - Již to funguje jak má a po sřazení nejsou
     // rostliny duplicitní, ale podle mě to není dobře!!! - ALE nevím co s tím jiného. :-(
     private void removeDuplicatePlants() {
-        Set<Plant> uniquePlants = new LinkedHashSet<>(plantList);
-        plantList.clear();
-        plantList.addAll(uniquePlants);
-    }
-    public void sortPlantsByName() {
-        plantList.sort(Comparator.comparing(Plant::getPlantName));
-        removeDuplicatePlants();
-    }
+        Set<Plant> uniquePlants = new LinkedHashSet<>(plantList); plantList.clear(); plantList.addAll(uniquePlants);}
+    //Takto to jde taky, ale je to zbytečně komplikované a vliv na duplicity to nemá. Kéž by mělo!!!
+    //public void sortPlantsByName() {plantList.sort(Comparator.comparing(Plant::getPlantName));
+    // removeDuplicatePlants();}
 
-//    public void sortPlantsByLastWateringDate() {
- //       Collections.sort(plantList, new PlantLastWateringDateComparator());
- //   }
+    public void sortPlantsByName() {Collections.sort(plantList); removeDuplicatePlants();}
+    public void sortPlantsByLastWateringDate() {Collections.sort(plantList); /*removeDuplicatePlants();*/}
+
+
 
     public void loadDataPlantsFromFile(String fileNamePrimary, String delimiter) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;
@@ -90,7 +118,7 @@ public class PlantManager {
 
 }
 
-// MEMENTO po 4 hodinách pokusů se Sortováním v PlantManager místo v HousePlant - skvělé. :-(
+// MEMENTO po 4 hodinách pokusů se Sortováním v PlantManager místo v HousePlant - skvělé! :-(
 
 // Pomoc při vývoji, abych věděl co se děje
 //public void printPlants() {
