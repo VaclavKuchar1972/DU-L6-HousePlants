@@ -32,19 +32,6 @@ public class PlantManager {
         removeDuplicatePlants();
     }
 
-    // Pomoc při vývoji, abych věděl co se děje
-    //public void printPlants() {
-    //    for (Plant plant : plantList) {
-    //        System.out.println(plant.getPlantName());
-    //    }
-    //}
-
-    //HashSet<Plant> sortPlantsByName = new HashSet<>();
-
-    // public void sortPlantsByName() {
-    //    plantList.sort(Comparator.comparing(Plant::getPlantName));
-    //}
-
 //    public void sortPlantsByLastWateringDate() {
  //       Collections.sort(plantList, new PlantLastWateringDateComparator());
  //   }
@@ -103,7 +90,8 @@ public class PlantManager {
 
 }
 
-// MEMENTO
+// MEMENTO po 4 hodinách pokusů se Sortováním v PlantManager místo v HousePlant - skvělé. :-(
+
 // Pomoc při vývoji, abych věděl co se děje
 //public void printPlants() {
 //    for (Plant plant : plantList) {
