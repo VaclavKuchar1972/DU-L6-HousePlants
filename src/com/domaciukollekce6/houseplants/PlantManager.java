@@ -15,7 +15,13 @@ public class PlantManager {
     public PlantManager() {this.plantList = new ArrayList<>();}
     
     public void addPlant(Plant plant) {plantList.add(plant);}
+
     public void removePlant(Plant plant) {plantList.remove(plant);}
+
+    public void removePlantByName(String plantName) {
+        plantList.removeIf(plant -> plant.getPlantName().equals(plantName));
+    }
+
 
     public void loadDataPlantsFromFile(String fileNamePrimary, String delimiter) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;

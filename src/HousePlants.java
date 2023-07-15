@@ -40,8 +40,7 @@ public class HousePlants {
             throw new RuntimeException(e);
         }
 
-        // Toto musí být až po natažení dat, jinak je list prázdný,
-        // narozdíl od ostatních tříd se Main evidentně chová striktně chronologicky!!! (to je pro mě)
+        // Toto musí být až po natažení dat, jinak je list prázdný.
         List<Plant> plantList = plantManager.getPlantList();
 
         System.out.println();
@@ -58,27 +57,37 @@ public class HousePlants {
             System.out.println(plant.getWateringInfo());
         }
 
+        // Oprava přidávání do skutečného seznamu a ne do jeho kopie, jak to bylo před tím
+        // !!! na toto do budoucna bacha! - to je fatální chyba (to je pro mě) :-)
         try {
-            plantList.add(new Plant("Jahodník", "na zábradlí balkónu", LocalDate.now(),
+            plantManager.addPlant(new Plant("Jahodník", "na zábradlí balkónu", LocalDate.now(),
                     LocalDate.now(),
                     3));
-            plantList.add(new Plant("Mochíto Máta", "na balkóně", LocalDate.now(),
+            plantManager.addPlant(new Plant("Mochíto Máta", "na balkóně", LocalDate.now(),
                     LocalDate.now(), 2));
         }
         catch (PlantException e) {
-            System.err.print("Nastala chyba při vytváření nových rostlin" + e.getLocalizedMessage());
+            System.err.print("Nastala chyba při přidávání nových rostlin" + e.getLocalizedMessage());
         }
+
+        // ! Tady jsem musel znovu natáhnout ten List, jina se změny neprojeví na výstupu na obrazovku
+        plantList = plantManager.getPlantList();
 
         System.out.println();
         System.out.println("Aktualizovaný seznam rostlin po přidání dvou rostlin dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
 
-        plantList.removeIf(plant -> plant.getPlantName().equals("Sukulent v koupelně"));
+        // Oprava odebírání ze skutečného seznamu a ne do jeho kopie, jak to bylo před tím
+        // !!! na toto do budoucna bacha! - to je fatální chyba (to je pro mě) :-)
+        plantManager.removePlantByName("Sukulent v koupelně");
+        plantList = plantManager.getPlantList();
+
         System.out.println();
         System.out.println
                 ("Aktualizovaný seznam rostlin po odebrání jedné rostliny dle zadání domácího úkolu v bodě 14:");
         for (Plant plant : plantList) {printPlantsPeopleDateOutput(plant);}
 
+        //plantList = plantManager.getPlantList();
         System.out.println();
         try {
             plantManager.saveDataPlantsToNewFile(Settings.fileNameAfterChanges(), plantList);
