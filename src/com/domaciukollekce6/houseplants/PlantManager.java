@@ -15,9 +15,10 @@ public class PlantManager {
 
     private List<Plant> plantList;
 
-    // Toto taky nefunguje i s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
+    // Toto taky nefunguje ani s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
     // zakomentovaný v této sérii poznámek, tak to nechci, myslím, že můžu mít doma stejnou rostlinu a odlišit jí jen
-    // např. poznámkou tím umístením, Bobkovej list, je stále Bobkovej list, jen je v jiným květináči
+    // např. poznámkou tím umístením, Bobkovej list, je prostě stále Bobkovej list, jen je v jiným květináči a nechci
+    // je rozlišovat na Bobkovej list 1, 2, 3, je to stále Bobkáč
 
     // private HashSet<String> uniquePlantNames; // HashSet pro kontrolu unikátnosti názvů rostlin
     //public void addPlant(Plant plant) {
@@ -71,34 +72,18 @@ public class PlantManager {
             System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
     }
-
-
-
-
     public void printRecentPlantings() {
         LocalDate currentDate = LocalDate.now();
         LocalDate oneMonthAgo = currentDate.minus(1, ChronoUnit.MONTHS);
-
-        System.out.println("Rostliny zasazené za poslední měsíc:");
-
+        System.out.println("Rostliny zasazené za poslední měsíc s tím, že když jich ve stejný den bylo zasazeno víc, "
+                + "vypíše se jen jedno datum:");
         HashSet<LocalDate> uniqueDates = new HashSet<>();
-
         for (Plant plant : plantList) {
             LocalDate plantingDate = plant.getPlantPlantingDate();
-            if (plantingDate.isAfter(oneMonthAgo) || plantingDate.isEqual(oneMonthAgo)) {
-                uniqueDates.add(plantingDate);
-            }
+            if (plantingDate.isAfter(oneMonthAgo) || plantingDate.isEqual(oneMonthAgo)) {uniqueDates.add(plantingDate);}
         }
-
-        for (LocalDate date : uniqueDates) {
-            System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        }
+        for (LocalDate date : uniqueDates) {System.out.println(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));}
     }
-
-
-
-
-
 
     public void loadDataPlantsFromFile(String fileNamePrimary, String delimiter) throws PlantException {
         int helpLineNumber = 0; int helpBadDateIdentifokator = 3;
@@ -154,17 +139,3 @@ public class PlantManager {
 
 }
 
-// MEMENTO po 4 hodinách pokusů se Sortováním v PlantManager místo v HousePlant - skvělé! :-(
-
-// Pomoc při vývoji, abych věděl co se děje
-//public void printPlants() {
-//    for (Plant plant : plantList) {
-//        System.out.println(plant.getPlantName());
-//    }
-//}
-
-//HashSet<Plant> sortPlantsByName = new HashSet<>();
-
-// public void sortPlantsByName() {
-//    plantList.sort(Comparator.comparing(Plant::getPlantName));
-//}

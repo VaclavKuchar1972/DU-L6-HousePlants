@@ -22,17 +22,7 @@ public class HousePlants {
     }
     public static void main(String[] args) throws PlantException {
 
-        // Pomocná proměnná pro vyhledávání rostlin zasazených za poslední měsíc od dnešního datumu
-        LocalDate lastMonthPlanting = LocalDate.now().minusMonths(1);
-
         PlantManager plantManager = new PlantManager();
-
-        // Výpis dní, kdy byla zasazena alespoň jedna rostlina - Domácí úkol lekce 6 bod 6 - část 1
-        // HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
-
-        // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 1
-        // HashSet<Plant> plantsPlantingLastMonth = new HashSet<>();
-
 
         try {plantManager.loadDataPlantsFromFile(Settings.fileNamePrimary(), delimiter());}
         catch (PlantException e) {
@@ -57,7 +47,7 @@ public class HousePlants {
             System.out.println(plant.getWateringInfo());
         }
 
-        // Oprava přidávání do skutečného seznamu a ne do jeho kopie, jak to bylo před tím
+        // OPRAVA přidávání do skutečného seznamu a ne do jeho kopie, jak to bylo před tím
         // !!! na toto do budoucna bacha! - to je fatální chyba (to je pro mě) :-)
         try {
             plantManager.addPlant(new Plant("Jahodník", "na zábradlí balkónu", LocalDate.now(),
@@ -123,13 +113,6 @@ public class HousePlants {
         // Výpis rostlin, které byli zasazeny za poslední měsíc od dnešního datumu - Domácí úkol lekce 6 - VÝZVA část 2
         System.out.println();
         plantManager.printRecentPlantings();
-
-        //for (Plant plant : plantList) {
-        //    if (plant.getPlantPlantingDate().isAfter(lastMonthPlanting)) {plantsPlantingLastMonth.add(plant);}
-        //}
-        //System.out.println();
-        //System.out.println("Rostliny zasazené za poslední měsíc od dnešního dne:");
-        //for (Plant plant : plantsPlantingLastMonth) {printPlantsPeopleDateOutput(plant);}
 
     }
 
