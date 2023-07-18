@@ -1,4 +1,4 @@
 Fialka 1	Popis fialky - je fialová a hezká	3	2021-05-12	2021-01-01
 Vánoční hvězda bez poznámky		4	2021-05-10	2021-04-01
-Jahodník	na zábradlí balkónu	3	2023-07-15	2023-07-15
-Mochíto Máta	na balkóně	2	2023-07-15	2023-07-15
+Jahodník	na zábradlí balkónu	3	2023-07-18	2023-07-18
+Mochíto Máta	na balkóně	2	2023-07-18	2023-07-18

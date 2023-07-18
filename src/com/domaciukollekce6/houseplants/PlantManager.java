@@ -15,23 +15,7 @@ public class PlantManager {
 
     private List<Plant> plantList;
 
-    // Toto taky nefunguje ani s tím níže zakomentovaným v inicializaci a to co by dělal nový kód v addPlant také
-    // zakomentovaný v této sérii poznámek, tak to nechci, myslím, že můžu mít doma stejnou rostlinu a odlišit jí jen
-    // např. poznámkou tím umístením, Bobkovej list, je prostě stále Bobkovej list, jen je v jiným květináči a nechci
-    // je rozlišovat na Bobkovej list 1, 2, 3, je to stále Bobkáč
-
-    // private HashSet<String> uniquePlantNames; // HashSet pro kontrolu unikátnosti názvů rostlin
-    //public void addPlant(Plant plant) {
-    //    if (uniquePlantNames.add(plant.getPlantName())) { // Kontrola unikátnosti názvu před přidáním
-    //        plantList.add(plant);
-    //    }
-    //}
-
-
-    public PlantManager() {
-        this.plantList = new ArrayList<>();
-        /* this.uniquePlantNames = new HashSet<>(); // Inicializace HashSetu */
-    }
+    public PlantManager() {this.plantList = new ArrayList<>();}
     
     public void addPlant(Plant plant) {plantList.add(plant);}
 
@@ -41,28 +25,7 @@ public class PlantManager {
         plantList.removeIf(plant -> plant.getPlantName().equals(plantName));
     }
 
-    // DUPLICITAMI MYSLÍM, že po vySortování list vypadal takto:
-    // 	Fialka 1	Popis fialky - je fialová a hezká	3	12.5.2021	1.1.2021
-    //	Fialka 1	Popis fialky - je fialová a hezká	3	12.5.2021	1.1.2021
-    //	Jahodník	na zábradlí balkónu	3	15.7.2023	15.7.2023
-    //	Jahodník	na zábradlí balkónu	3	15.7.2023	15.7.2023
-    //	Mochíto Máta	na balkóně	2	15.7.2023	15.7.2023
-    //	Mochíto Máta	na balkóně	2	15.7.2023	15.7.2023
-    //	Vánoční hvězda bez poznámky		4	10.5.2021	1.4.2021
-    //	Vánoční hvězda bez poznámky		4	10.5.2021	1.4.2021
-    // Duplicity názvů samotných rostlin bych spíše uvítal a jejich skutečnou duplicitu vychytal plantNote
-    // nebo něčím jiným
-
-    // Nový kód na řazení s odstraněním duplicit - ALE TO SE MI FAKT NELÍBÍ - Již to funguje jak má a po sřazení nejsou
-    // rostliny duplicitní, ale podle mě to není dobře!!! - ALE nevím co s tím jiného. :-(
-    private void removeDuplicatePlants() {
-        Set<Plant> uniquePlants = new LinkedHashSet<>(plantList); plantList.clear(); plantList.addAll(uniquePlants);}
-    //Takto to jde taky, ale je to zbytečně komplikované a vliv na duplicity to nemá. Kéž by mělo!!!
-    //public void sortPlantsByName() {plantList.sort(Comparator.comparing(Plant::getPlantName));
-    // removeDuplicatePlants();}
-
-    public void sortPlantsByName() {Collections.sort(plantList); removeDuplicatePlants();}
-    //public void sortPlantsByLastWateringDate() {Collections.sort(plantList); /*removeDuplicatePlants();*/}
+    public void sortPlantsByName() {Collections.sort(plantList);}
     public void sortPlantsByLastWateringDate() {plantList.sort(new PlantLastWateringDateComparator());}
     public void printUniquePlantingDates() {
         HashSet<LocalDate> uniquePlantingDates = new HashSet<>();
@@ -122,7 +85,7 @@ public class PlantManager {
         }
     }
 
-    public void saveDataPlantsToNewFile(String fileName, List<Plant> plants) throws PlantException {
+    public void saveDataPlantsToNewFile(String fileName) throws PlantException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Plant plant : plantList) {
                 writer.write(plant.getPlantName() + delimiter() + plant.getPlantNote() + delimiter()

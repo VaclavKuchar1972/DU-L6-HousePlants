@@ -36,7 +36,7 @@ public class Plant implements Comparable<Plant>{
     // Konstruktor 3 - "plantNote" nastaví jako prázdný řetězec, "plantLastWateringDate" nastaví jako aktuální datum,
     // "normalWateringFrequencyP" nastaví na hodnotu 7 a "plantPlantingDate" nastaví jako aktuální datum
     public Plant(String plantName, LocalDate plantPlantingDate) throws PlantException {
-        this(plantName, "", plantPlantingDate, LocalDate.now(), 7);
+        this(plantName, plantPlantingDate, 7);
     }
 
     public String getWateringInfo () {

@@ -78,7 +78,7 @@ public class HousePlants {
 
         System.out.println();
         try {
-            plantManager.saveDataPlantsToNewFile(Settings.fileNameAfterChanges(), plantList);
+            plantManager.saveDataPlantsToNewFile(Settings.fileNameAfterChanges());
             System.out.println("Aktualizovaný seznam rostlin byl uložen do souboru: "
                     + Settings.fileNameAfterChanges());
         } catch (PlantException e) {
